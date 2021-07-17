@@ -1,7 +1,6 @@
 module SimulatedAnnealing
 
 using Distributed:Worker
-using Base:eval_user_input
 using Distributed, ParallelDataTransfer
 
 include("types.jl")
@@ -11,10 +10,10 @@ export Options, Result, State, sa!
 
 
 function sa!(current::State, result::Result, options::Options)
-    # Check if running on multiple proccess
+    # Check if running on multiple proccesses
     parallel = nworkers() > 1
 
-    # Check number of workers multiple of Ns
+    # Check number of workers is multiple of Ns
     rem(options.Ns, nworkers()) !== 0 && error("Number of workers must be multiple of Ns")
 
     # Print intial status
